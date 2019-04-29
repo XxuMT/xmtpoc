@@ -1,11 +1,20 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8&useSSL=false
+    url: jdbc:mysql://localhost:3306/xmt_poc?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8&useSSL=false
     username: root
     password:
     driver-class-name: com.mysql.jdbc.Driver
 
-jpa:
-  hibernate:
-    ddl-auto: update //自动更新
-    show-sql: true  //日志中显示sql语句
+  main:
+      allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注册
+
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+

@@ -1,7 +1,9 @@
-package com.xmt.xmtpoc.pojo;
+package com.xmt.xmtpoc.dto.request;
 
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 /**
