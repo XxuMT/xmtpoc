@@ -1,13 +1,17 @@
 package com.xmt.xmtpoc.controller;
 
-import com.xmt.xmtpoc.pojo.LoginDTO;
+import com.xmt.xmtpoc.dto.domain.UserInfo;
+import com.xmt.xmtpoc.dto.request.LoginDTO;
+import com.xmt.xmtpoc.repository.LoginRepository;
 import com.xmt.xmtpoc.result.Result;
 import com.xmt.xmtpoc.result.ResultFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 /**
  * @author mengting.xu
@@ -19,6 +23,9 @@ import javax.validation.Valid;
 @RequestMapping(value = "/wapi/login")
 public class LoginController {
 
+    @Autowired
+    private LoginRepository loginRepository;
+
     @CrossOrigin
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
@@ -28,7 +35,8 @@ public class LoginController {
             message = "登陆失败，" + bindingResult.getFieldError().getDefaultMessage();
             return ResultFactory.fail(message);
         }
-        if (!"xmt".equals(dto.getLoginName()) || !"12345qwert".equals(dto.getLoginPass())) {
+        UserInfo userInfo = loginRepository.findByUserNameAndUserPass(dto.getLoginName(), dto.getLoginPass());
+        if (userInfo == null) {
             message = "登陆失败，用户名密码错误";
             return ResultFactory.fail(message);
         }
