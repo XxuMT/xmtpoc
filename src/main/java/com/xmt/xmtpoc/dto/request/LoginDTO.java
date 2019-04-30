@@ -15,6 +15,8 @@ import javax.validation.constraints.NotNull;
 @Data
 public class LoginDTO {
 
+    private Long id;
+
     @NotNull(message = "用户名不允许为空")
     private String loginName;
 

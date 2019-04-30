@@ -42,4 +42,21 @@ public class LoginController {
         }
         return ResultFactory.success(dto);
     }
+
+    @CrossOrigin
+    @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+    @ResponseBody
+    public Result changePassword(@Valid LoginDTO dto, BindingResult bindingResult) {
+        String message;
+        if (bindingResult.hasErrors()) {
+            message = "更新失败，" + bindingResult.getFieldError().getDefaultMessage();
+            return ResultFactory.fail(message);
+        }
+        int count = loginRepository.modifyUserPassById(dto.getLoginPass(), dto.getId());
+        if (count < 0) {
+            message = "更新失败";
+            return ResultFactory.fail(message);
+        }
+        return ResultFactory.success(dto);
+    }
 }
