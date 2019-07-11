@@ -26,10 +26,9 @@ public class LoginController {
     @Autowired
     private LoginRepository loginRepository;
 
-    @CrossOrigin
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public Result login(@Valid LoginDTO dto, BindingResult bindingResult) {
+    public Result login(@RequestBody LoginDTO dto, BindingResult bindingResult) {
         String message;
         if (bindingResult.hasErrors()) {
             message = "登陆失败，" + bindingResult.getFieldError().getDefaultMessage();
