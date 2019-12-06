@@ -15,7 +15,7 @@ import java.io.IOException;
 
 /**
  *
- * description: 跨域配置
+ * description: 跨域配置 该方法也可以，使用时加上@Service注解
  *
  * @author mengting.xu
  * @date 2019/6/26 10:58
@@ -23,8 +23,7 @@ import java.io.IOException;
  * @return
  */
 
-@Service
-public class CrosFilter implements Filter {
+public class CorsFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

@@ -22,7 +22,7 @@ public class Result {
     /**
      * 响应提示信息
      */
-    private String message;
+    private String description;
 
     /**
      * 响应结果对象

@@ -1,5 +1,6 @@
 package com.xmt.xmtpoc.dto.request;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -22,4 +23,15 @@ public class LoginDTO {
 
     @NotNull(message = "密码不允许为空")
     private String loginPass;
+
+    @Builder
+    public LoginDTO(@NotNull(message = "用户名不允许为空") String loginName, @NotNull(message = "密码不允许为空") String loginPass) {
+        this.loginName = loginName;
+        this.loginPass = loginPass;
+    }
+
+    public static void main(String[] args) {
+    LoginDTO loginDTO = LoginDTO.builder().loginPass("121").build();
+    System.out.println(loginDTO.toString());
+  }
 }

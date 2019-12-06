@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Description: 拦截器统一添加对Options请求的支持 废弃
  * @date 2019/6/25
  */
-public class CrosDomainAllowInterceptor implements HandlerInterceptor {
+public class CorsDomainAllowInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if(request.getMethod().equals(RequestMethod.OPTIONS.name())) {

@@ -1,34 +1,22 @@
 package com.xmt.xmtpoc.configbean;
 
 import org.apache.catalina.filters.CorsFilter;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  * @author mengting.xu
  * @version 1.0
- * @Description: 跨域请求配置  废弃
+ * @Description: 跨域请求配置  废弃 spring版本过低
  * @date 2019/6/25
  */
+@Configuration
+public class CorsConfig {
 
-public class CrosConfig extends WebMvcConfigurerAdapter {
-
-    /*@Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("*")
-                .allowedMethods("PUT", "DELETE", "GET", "POST")
-                .allowedHeaders("Accept, Origin, XRequestedWith, Content-Type, LastModified")
-                .exposedHeaders("access-control-allow-headers",
-                        "access-control-allow-methods",
-                        "access-control-allow-origin",
-                        "access-control-max-age",
-                        "X-Frame-Options")
-                .allowCredentials(true).maxAge(3600);
-    }*/
-
-    /* 行不通，废弃
+    /* spring 版本问题，CorsConfiguration类需要4.2.7版本，项目使用的是5.1.6版本
     private CorsConfiguration buildConfig() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.addAllowedOrigin("*");
@@ -41,7 +29,21 @@ public class CrosConfig extends WebMvcConfigurerAdapter {
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", buildConfig());
+        source.registerCorsConfiguration("/**", buildConfig()); // CORS 配置对所有接口有效
         return new CorsFilter();
     }*/
+
+    @Bean
+    public WebMvcConfigurer corsConfiguration() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/wapi/**")
+                        .allowedOrigins("*")
+                        .allowCredentials(true)
+                        .allowedMethods("GET", "POST", "DELETE", "PUT", "OPTION")
+                        .maxAge(3600);
+            }
+        };
+    }
 }
